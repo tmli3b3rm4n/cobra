@@ -47,16 +47,20 @@ public class MainController {
                     x = false;
 
                     switch(b[y]) {
-                        case "." :
-                            specialChar = ".";
-                        case "," :
-                            specialChar = ",";
                         case ":" :
                             specialChar = ":";
-
+                            hasPeriod = true;
+                        case "," :
+                            specialChar = ",";
+                            hasPeriod = true;
+                        case "." :
+                            specialChar = ".";
+                            hasPeriod = true;
+                        default :
                     }
                     i++;
-                    if (!specialChar.equals("")){
+                    if (hasPeriod){
+                        hasPeriod = false;
                         continue;
                     }
 
@@ -66,7 +70,9 @@ public class MainController {
             if (!specialChar.equals("")) {
                 res = res.concat(specialChar);
                 specialChar = "";
+                hasPeriod = false;
             }
+
             res = res.concat(" ");
             scrambleInputField.setText(res);
         }
