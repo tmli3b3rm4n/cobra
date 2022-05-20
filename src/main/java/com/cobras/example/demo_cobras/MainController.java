@@ -19,22 +19,23 @@ public class MainController {
         String str = scrambleInputField.getText();
         String[] a = str.split(" ");
         String res = "";
+
+        boolean hasPeriod = false;
+        String specialChar = "";
+
         for (String aa : a) {
             int y;
-            boolean hasPeriod = false;
-            //boolean hasComma = false;
+            int i = 0;
+
             String[] b = aa.split("");
 
             Map<Integer, String> map =  new HashMap<>();
-            int i = 0;
+
             for (String bb : b) {
                 boolean x = true;
+
                 while (x) {
                     y = getRandomNumber(0, b.length);
-                    if (bb.equals(".")) {
-                        hasPeriod = true;
-                    }
-
                     // Keep looping till a missing index is found.
                     // The cost for random.  I chose this way given the imput size would typically
                     // the size of a word.  I acknowledge this wouldn't work well with large imputs.
@@ -44,14 +45,27 @@ public class MainController {
                     }
                     map.put(y, b[y]);
                     x = false;
-                    if (!hasPeriod) {
-                        res = res.concat(b[y]);
+
+                    switch(b[y]) {
+                        case "." :
+                            specialChar = ".";
+                        case "," :
+                            specialChar = ",";
+                        case ":" :
+                            specialChar = ":";
+
                     }
                     i++;
+                    if (!specialChar.equals("")){
+                        continue;
+                    }
+
+                    res = res.concat(b[y]);
                 }
             }
-            if (hasPeriod) {
-                res = res.concat(".");
+            if (!specialChar.equals("")) {
+                res = res.concat(specialChar);
+                specialChar = "";
             }
             res = res.concat(" ");
             scrambleInputField.setText(res);
