@@ -4,12 +4,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.lang.Math;
 
 public class MainController {
     @FXML
     TextArea scrambleInputField;
+
     public int getRandomNumber(int min, int max) {
         return (int) (Math.random() * (max - min) + min);
     }
@@ -21,62 +23,66 @@ public class MainController {
         String res = "";
 
         boolean hasPeriod = false;
+        boolean capNext = false;
         String specialChar = "";
-
+        boolean gen = true;
         for (String aa : a) {
             int y;
-            int i = 0;
-
             String[] b = aa.split("");
 
             Map<Integer, String> map =  new HashMap<>();
+            int i = 0;
 
-            for (String bb : b) {
-                boolean x = true;
+//            for (int i = 0; i < b.length; i++) {
+            // This is the cost of mostly randomness given the constraints.
+            while (i < b.length) {
+                y = getRandomNumber(0, b.length);
 
-                while (x) {
-                    y = getRandomNumber(0, b.length);
-                    // Keep looping till a missing index is found.
-                    // The cost for random.  I chose this way given the imput size would typically
-                    // the size of a word.  I acknowledge this wouldn't work well with large imputs.
-                    boolean result = map.containsKey(y);
-                    if (result) {
-                        continue;
-                    }
-                    map.put(y, b[y]);
-                    x = false;
-
-                    switch(b[y]) {
-                        case ":" :
-                            specialChar = ":";
-                            hasPeriod = true;
-                        case "," :
-                            specialChar = ",";
-                            hasPeriod = true;
-                        case "." :
-                            specialChar = ".";
-                            hasPeriod = true;
-                        default :
-                    }
-                    i++;
-                    if (hasPeriod){
-                        hasPeriod = false;
-                        continue;
-                    }
-
-                    res = res.concat(b[y]);
+                boolean result = map.containsKey(y);
+                if (result) {
+                    continue;
                 }
-            }
-            if (!specialChar.equals("")) {
-                res = res.concat(specialChar);
-                specialChar = "";
-                hasPeriod = false;
-            }
+                i++;
+                map.put(y, b[y]);
 
+                switch (b[y]) {
+                    case ":":
+                        specialChar = ":";
+                        hasPeriod = true;
+                        continue;
+                    case ",":
+                        specialChar = ",";
+                        hasPeriod = true;
+                        continue;
+                    case ".":
+                        specialChar = ".";
+                        hasPeriod = true;
+                        continue;
+                    default:
+                }
+
+                if (capNext || gen) {
+                    b[y] = b[y].toUpperCase();
+                    capNext = false;
+                    gen = false;
+                } else {
+                    b[y] = b[y].toLowerCase();
+                }
+
+                res = res.concat(b[y]);
+            }
+            if (hasPeriod) {
+                res = res.concat(specialChar);
+                hasPeriod = false;
+                if (specialChar.equals(".") || specialChar.equals(":")){
+                    capNext = true;
+                }
+
+            }
             res = res.concat(" ");
-            scrambleInputField.setText(res);
         }
 
+        scrambleInputField.setText(res);
     }
 
     @FXML
