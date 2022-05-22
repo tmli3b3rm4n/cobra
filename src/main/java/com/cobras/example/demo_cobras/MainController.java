@@ -25,13 +25,12 @@ public class MainController {
         String res = "";
 
         boolean hasPeriod = false;
-        boolean capNext = false;
-        boolean gen = true;
+        boolean capNext = true;
 
         for (String aa : a) {
-            String[] b = aa.split("");
             int y;
             int i = 0;
+            String[] b = aa.split("");
             List<Integer> list = new ArrayList<>();
             while (i < b.length) {
                 y = getRandomNumber(0, b.length);
@@ -63,10 +62,9 @@ public class MainController {
                     }
                 }
 
-                if (capNext || gen) {
+                if (capNext) {
                     b[y] = b[y].toUpperCase();
                     capNext = false;
-                    gen = false;
                 } else {
                     b[y] = b[y].toLowerCase();
                 }
