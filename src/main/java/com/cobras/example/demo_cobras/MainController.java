@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 import java.lang.Math;
 
@@ -20,21 +19,19 @@ public class MainController {
     protected void onSubmitButtonClick() {
         String str = scrambleInputField.getText();
         String[] a = str.split(" ");
+        String specialChar = "";
         String res = "";
 
         boolean hasPeriod = false;
         boolean capNext = false;
-        String specialChar = "";
         boolean gen = true;
+
         for (String aa : a) {
-            int y;
-            String[] b = aa.split("");
-
             Map<Integer, String> map =  new HashMap<>();
+            String[] b = aa.split("");
+            int y;
             int i = 0;
-
-//            for (int i = 0; i < b.length; i++) {
-            // This is the cost of mostly randomness given the constraints.
+            // This is the cost of mostly randomness.
             while (i < b.length) {
                 y = getRandomNumber(0, b.length);
 
@@ -42,9 +39,10 @@ public class MainController {
                 if (result) {
                     continue;
                 }
-                i++;
-                map.put(y, b[y]);
 
+                i++;
+
+                map.put(y, b[y]);
                 switch (b[y]) {
                     case ":":
                         specialChar = ":";
