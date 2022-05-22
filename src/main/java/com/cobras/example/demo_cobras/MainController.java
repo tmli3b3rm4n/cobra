@@ -3,7 +3,9 @@ package com.cobras.example.demo_cobras;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.lang.Math;
 
@@ -27,22 +29,20 @@ public class MainController {
         boolean gen = true;
 
         for (String aa : a) {
-            Map<Integer, String> map =  new HashMap<>();
             String[] b = aa.split("");
             int y;
             int i = 0;
-            // This is the cost of mostly randomness.
+            List<Integer> list = new ArrayList<>();
             while (i < b.length) {
                 y = getRandomNumber(0, b.length);
 
-                boolean result = map.containsKey(y);
-                if (result) {
+                if (list.contains(y)) {
                     continue;
                 }
 
                 i++;
 
-                map.put(y, b[y]);
+                list.add(y);
                 switch (b[y]) {
                     case ":" -> {
                         specialChar = ":";
