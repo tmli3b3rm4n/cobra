@@ -4,38 +4,72 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
 import java.lang.Math;
 
 public class MainController {
     @FXML
     TextArea scrambleInputField;
 
+    /**
+     * Returns random number within range.
+     * @param min
+     * @param max
+     * @return
+     */
     public int getRandomNumber(int min, int max) {
         return (int) (Math.random() * (max - min) + min);
     }
 
+    /**
+     * Checks if input is an int or not.
+     * @param input
+     * @return
+     */
+    protected boolean isInt(String input) {
+        try
+        {
+            Integer.parseInt(input);
+            return true;
+        }
+        catch (NumberFormatException e)
+        {
+            return false;
+        }
+    }
+
+    /**
+     * Handles the on submit request.
+     */
     @FXML
     protected void onSubmitButtonClick() {
         String str = scrambleInputField.getText();
         String[] a = str.split(" ");
         String specialChar = "";
         String res = "";
-
+        // Marker for knowing if punctiation is required.
         boolean hasPeriod = false;
+        // Marker for when a capital letter is required.
         boolean capNext = true;
 
         for (String aa : a) {
+            if (isInt(aa)) {
+                res = res.concat(aa.concat(" "));
+                continue;
+            }
             int y;
             int i = 0;
             String[] b = aa.split("");
             List<Integer> list = new ArrayList<>();
             while (i < b.length) {
                 y = getRandomNumber(0, b.length);
+                // This guarantees letters get shuffled.
+                if(b.length >= 2 && i == 0) {
+                    y = getRandomNumber(1, b.length);
+                }
 
-                if (list.contains(y)) {
+                if (list.contains(y) ) {
                     continue;
                 }
 
@@ -62,11 +96,11 @@ public class MainController {
                     }
                 }
 
+                b[y] = b[y].toLowerCase();
+
                 if (capNext) {
                     b[y] = b[y].toUpperCase();
                     capNext = false;
-                } else {
-                    b[y] = b[y].toLowerCase();
                 }
 
                 res = res.concat(b[y]);
