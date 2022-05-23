@@ -47,7 +47,7 @@ public class MainController {
             return;
         }
         Integer x = 0;
-        Integer target = Integer.parseInt(str);gitgitg
+        Integer target = Integer.parseInt(str);
         scrambleInputField.setText(getSum(target-1).toString());
     }
 
