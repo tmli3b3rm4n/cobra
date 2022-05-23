@@ -17,9 +17,9 @@
 <ButtonBar prefHeight="40.0" prefWidth="586.0" style="-fx-padding: 5 10;">
     <buttons>
         <ProgressBar id="progress_bar" minWidth="0.0" prefHeight="3.0" prefWidth="200.0" progress="0.0"  />
-        <Button fx:id="clear_btn" alignment="CENTER" mnemonicParsing="false" text="Clear" onAction="#onClearButtonClick" />
-        <Button fx:id="magic_btn" alignment="CENTER" minWidth="47.0" mnemonicParsing="false" prefHeight="33.0" text="Magic" onAction="#onMaginButtonClick" />
-        <Button fx:id="submit_btn" alignment="CENTER" mnemonicParsing="false" text="Submit"  onAction="#onSubmitButtonClick" />
+        <Button fx:id="clear_btn" alignment="CENTER" mnemonicParsing="false" text="Problem 1 submit" onAction="#onClearButtonClick" />
+        <Button fx:id="magic_btn" alignment="CENTER" minWidth="47.0" mnemonicParsing="false" prefHeight="33.0" text="Get Text" onAction="#onMaginButtonClick" />
+        <Button fx:id="submit_btn" alignment="CENTER" mnemonicParsing="false" text="Problem 2 submit"  onAction="#onSubmitButtonClick" />
     </buttons>
 </ButtonBar>
 </VBox>

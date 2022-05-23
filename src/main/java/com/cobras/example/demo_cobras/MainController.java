@@ -28,15 +28,15 @@ public class MainController {
      * @return
      */
     protected boolean isInt(String input) {
-        try
-        {
+        try {
             Integer.parseInt(input);
             return true;
-        }
-        catch (NumberFormatException e)
-        {
+        } catch (NumberFormatException e) {
             return false;
         }
+    }
+    protected void handleOnPuncDet(Boolean x, String y) {
+
     }
 
     /**
@@ -92,6 +92,11 @@ public class MainController {
                         hasPeriod = true;
                         continue;
                     }
+                    case "?" -> {
+                        specialChar = "?";
+                        hasPeriod = true;
+                        continue;
+                    }
                     default -> {
                     }
                 }
@@ -126,7 +131,23 @@ public class MainController {
 
     @FXML
     protected void onClearButtonClick() {
-        scrambleInputField.setText("");
+        String str = scrambleInputField.getText();
+        if (!isInt(str)) {
+            scrambleInputField.setText("Input must be a of type int");
+        }
+        Integer x = 0;
+        Integer target = Integer.parseInt(str);
+        scrambleInputField.setText(getSum(target).toString());
     }
 
+    protected Integer getSum(Integer x) {
+        if (x == 0) {
+            return 0;
+        }
+        if( x % 3 == 0 || x % 5 == 0) {
+            return x + getSum(x-1);
+        }
+        return getSum(x-1);
+    }
+;
 }
