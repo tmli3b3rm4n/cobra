@@ -46,24 +46,40 @@ public class MainController {
             scrambleInputField.setText("Input must be a of type int");
             return;
         }
-        Integer x = 0;
         Integer target = Integer.parseInt(str);
-        scrambleInputField.setText(getSum(target-1).toString());
-    }
-
-    protected Integer getSum(Integer x) {
-        if (x == 0) {return 0;}
-        if( x % 3 == 0 || x % 5 == 0)
-        {return x + getSum(x-1);}
-        return getSum(x-1);
+        scrambleInputField.setText(getSum(target).toString());
     }
 
     /**
-     * Handles the on submit request.
+     * Returns the sum of all natural numbers <= n 
+     * where n is mul
+     * tiple of 3 or 5.
+     * @param n largest Integer value in the target set.
+     * @return The sum.
+     */
+    protected Integer getSum(Integer n) {
+        if (n == 0) {return 0;}
+        if(n % 3 == 0 ||n % 5 == 0) {
+            return n + getSum(n-1);
+        }
+        return getSum(n-1);
+    }
+
+    /**
+     * Handles the on submit request. From the app/
      */
     @FXML
     protected void problem2() {
-        String str = scrambleInputField.getText();
+        scrambleInputField.setText(this.scramble(scrambleInputField.getText()));
+    }
+
+    /**
+     * Per request this takes in a string and returns a different string shuffled.  For numbers it will leave alone
+     * and handles punctuation.
+     * @param str
+     * @return
+     */
+    protected String scramble(String str) {
         String[] a = str.split(" ");
         String specialChar = "";
         String res = "";
@@ -82,7 +98,7 @@ public class MainController {
             int i = 0;
             String[] b = aa.split("");
             List<Integer> list = new ArrayList<>();
-            // Definetly not the best for performance but does guarentee a shuffle.
+            // For a larger
             while (i < b.length) {
                 y = getRandomNumber(0, b.length);
                 // This guarantees letters get shuffled.
@@ -139,14 +155,11 @@ public class MainController {
             res = res.concat(" ");
         }
 
-        scrambleInputField.setText(res);
+        return res;
     }
 
     @FXML
     protected void onMaginButtonClick() {
         scrambleInputField.setText("Another point of interest is the break statement. Each break statement terminates the enclosing switch statement. Control flow continues with the first statement following the switch block. The break statements are necessary because without them, statements in switch blocks fall through: All statements after the matching case label are executed in sequence, regardless of the expression of subsequent case labels, until a break statement is encountered.");
     }
-
-
-;
 }
