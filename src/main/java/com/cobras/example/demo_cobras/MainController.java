@@ -47,8 +47,8 @@ public class MainController {
             return;
         }
         Integer x = 0;
-        Integer target = Integer.parseInt(str);
-        scrambleInputField.setText(getSum(target).toString());
+        Integer target = Integer.parseInt(str);gitgitg
+        scrambleInputField.setText(getSum(target-1).toString());
     }
 
     protected Integer getSum(Integer x) {
