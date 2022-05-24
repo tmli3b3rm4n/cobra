@@ -37,20 +37,6 @@ public class MainController {
     }
 
     /**
-     * Problem 1.  S
-     */
-    @FXML
-    protected void problem1() {
-        String str = scrambleInputField.getText();
-        if (!isInt(str)) {
-            scrambleInputField.setText("Input must be a of type int");
-            return;
-        }
-        Integer target = Integer.parseInt(str);
-        scrambleInputField.setText(getSum(target -1).toString());
-    }
-
-    /**
      * Returns the sum of all natural numbers <= n 
      * where n is mul
      * tiple of 3 or 5.
@@ -65,18 +51,12 @@ public class MainController {
         return getSum(n-1);
     }
 
-    /**
-     * Handles the on submit request. From the app/
-     */
-    @FXML
-    protected void problem2() {
-        scrambleInputField.setText(this.scramble(scrambleInputField.getText()));
-    }
 
     /**
      * Per request this takes in a string and returns a different string shuffled.  For numbers it will leave alone
      * and handles punctuation.
-     * @param str
+     * @param str String to scramble.  This will take in a n as a string but will not
+     *            scramble unless other characters are mixed in;
      * @return
      */
     protected String scramble(String str) {
@@ -162,4 +142,35 @@ public class MainController {
     protected void onMaginButtonClick() {
         scrambleInputField.setText("Another point of interest is the break statement. Each break statement terminates the enclosing switch statement. Control flow continues with the first statement following the switch block. The break statements are necessary because without them, statements in switch blocks fall through: All statements after the matching case label are executed in sequence, regardless of the expression of subsequent case labels, until a break statement is encountered.");
     }
+
+    /**
+     * Problem 1.  If we list all the natural numbers less than
+     * 10 whic are multiples of 3 or 5, we get 3, 5, 6, 9.
+     * The sum of these multiples is 23.  Write a functio which
+     * returns the sum of all multiples of 3 or 5 less than X,
+     * where X is an integer parameter.
+     */
+    @FXML
+    protected void problem1() {
+        String str = scrambleInputField.getText();
+        if (!isInt(str)) {
+            scrambleInputField.setText("Input must be a of type int");
+            return;
+        }
+        Integer target = Integer.parseInt(str);
+        scrambleInputField.setText(getSum(target -1).toString());
+    }
+
+    /**
+     * Problem 2:  Write a FUNCTION which takes in a String as a parameter and returns
+     * an alternate version of that string.  The program should be able to :
+     * 1)      handle punctuation
+     * 2)      Ignore numbers (i.e. if “500” is passed in, “500” is passed back)
+     * 3)      Handle multiple sentences
+     */
+    @FXML
+    protected void problem2() {
+        scrambleInputField.setText(this.scramble(scrambleInputField.getText()));
+    }
+
 }
