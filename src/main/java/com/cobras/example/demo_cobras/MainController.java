@@ -47,7 +47,7 @@ public class MainController {
             return;
         }
         Integer target = Integer.parseInt(str);
-        scrambleInputField.setText(getSum(target).toString());
+        scrambleInputField.setText(getSum(target -1).toString());
     }
 
     /**
